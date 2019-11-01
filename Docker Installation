@@ -1,8 +1,8 @@
-.Install required packages.
+To Install Docker on Centos please follow below mentioned steps
 
 sudo yum install -y yum-utils \
-  device-mapper-persistent-data \
-  lvm2
+  device-mapper-persistent-data \ 
+  lvm2 ---> Mandatory LVM for docker
   
   
   sudo yum-config-manager \
@@ -17,3 +17,12 @@ sudo yum install -y yum-utils \
    
    
    sudo docker run hello-world
+   
+   
+   To install on RHEL server follow below steps 
+   
+   1.Update packages
+   yum update -y
+
+   2.Install docker
+   yum install docker -y
