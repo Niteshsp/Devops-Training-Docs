@@ -1,0 +1,41 @@
+FROM ubuntu 
+MAINTAINER nitish.3586@gmail.com 
+
+RUN apt-get update 
+RUN apt-get install –y nginx 
+CMD [“echo”,”Image created”]
+
+
+sudo yum install docker-ce
+If prompted to accept the GPG key, verify that the fingerprint matches 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35, and if so, accept it.
+
+2.Start Docker.
+
+sudo systemctl start docker
+3.Verify that docker is installed correctly by running the hello-world image.
+
+sudo docker run hello-world
+
+#docker search httpd
+#doker pull httpd --> pulls image
+#docker rmi httpd --> removes image
+#docker run httpd --> Creates a container by default
+#docker stop httpd_server 
+#docker rm container_name
+#docker run -d --name httpd_server -p 8080:80 httpd
+#docker images -q -->displays only image id
+#docker inspect imagename --> Details of image is viewed
+
+
+
+
+docker run -p 8080:8080 -p 50000:50000 jenkins
+
+
+Steps to push image to dockerhub
+
+1. #docker pull ubuntu
+2. #docker tag ubuntu:latest johncena999/ubuntu:demo
+3. # docker login
+4. # docker push  johncena999/ubuntu:demo
+5. #docker run johncena999/ubuntu:demo
