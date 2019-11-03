@@ -1,0 +1,56 @@
+
+access it from browser using public ip port 8090 this info is under /conf and server.xml
+
+check for deploy to container in post build actions
+
+
+1)Manage Jenkins > Jenkins Plugins > available > deploy to container
+
+To deploy our build artifacts on tomcat server our Jenkins server need access. For this we should setup credentials. This option is available in Jenkins home page
+
+setup credentials
+go to credentials option in home page> jenkins > Global credentials > add credentials
+
+In tomcat server add the user 
+#find /- name context.xml
+edit it in the last 2 files we are doing this under webapp
+
+comment out at <!-- <value till 0:1/> --> on both files 
+
+once done bring down and bring up tomcat now click on tomcat url it prompts for username password since no users exists we will create
+
+under conf location --> vi tomcat-users.xml --> Add below users and role --> copy paste between your <tomcat-users under -->
+
+        <role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<role rolename="manager-jmx"/>
+	<role rolename="manager-status"/>
+	<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+	<user username="deployer" password="deployer" roles="manager-script"/>
+	<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+restart the tomcat 
+server
+
+
+Username : deployer
+Password : XXXXXXX
+id : Tomcat_user
+Description: Tomcat user to deploy on tomcat server
+Modify the same job which created in part-01 and add deployment steps.
+
+Post Steps
+Deploy war/ear to container
+WAR/EAR files : **/*.war
+Containers : Tomcat 8.x
+Credentials: Tomcat_user (which created in above step)
+Tomcat URL : http://<PUBLIC_IP>:<PORT_NO>
+Save and run the job now.
+
+Port-03 : Continuous Integration & Continuous Deployment (CI/CD)
+Now job is running fine but to make this as Continuous Integration and Continuous Deployment Tod do that go back and modify job as below.
+
+Build Triggers
+Poll SCM
+schedule */2 * * * *
+Save the job and modify the code in GitHub. Then you could see your job get trigger a build without any manual intervention.
